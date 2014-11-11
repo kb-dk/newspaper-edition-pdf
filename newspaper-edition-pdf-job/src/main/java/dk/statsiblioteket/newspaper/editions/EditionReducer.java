@@ -16,7 +16,7 @@ public class EditionReducer extends Reducer<Text, Text, Text, Text> {
      * @throws InterruptedException
      */
     @Override
-    protected void reduce(Text key, Iterable<Text> values, Reducer.Context context) throws IOException, InterruptedException {
+    protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         super.reduce(key, values, context);
     }
 }
