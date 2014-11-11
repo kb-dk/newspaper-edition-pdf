@@ -13,6 +13,11 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.log4j.Logger;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -32,5 +37,8 @@ public class AltoOverlayMapper extends DomsOverlayMapper {
     @Override
     protected void map(Text key, Text value, Context context) throws IOException, InterruptedException {
         super.map(key, value, context);
+
+
+
     }
 }
