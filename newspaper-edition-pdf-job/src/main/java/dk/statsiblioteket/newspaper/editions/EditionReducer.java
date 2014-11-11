@@ -2,8 +2,13 @@ package dk.statsiblioteket.newspaper.editions;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.pdfbox.exceptions.COSVisitorException;
+import org.apache.pdfbox.util.PDFMergerUtility;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class EditionReducer extends Reducer<Text, Text, Text, Text> {
 
@@ -18,5 +23,25 @@ public class EditionReducer extends Reducer<Text, Text, Text, Text> {
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         super.reduce(key, values, context);
+
+        SortedSet<Text> sortedSet = new TreeSet<Text>();
+        for (Text value : values) {
+            sortedSet.add(value);
+        }
+
+        PDFMergerUtility merger = new PDFMergerUtility();
+        for (Text text : sortedSet) {
+            merger.addSource(new File(text.toString()));
+        }
+        final String destinationFileName = key.toString() + ".pdf";
+        merger.setDestinationFileName(destinationFileName);
+        try {
+            merger.mergeDocuments();
+        } catch (COSVisitorException e) {
+            throw new IOException(e);
+        }
+        context.write(key,new Text(destinationFileName));
     }
+
+
 }

@@ -52,6 +52,13 @@
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>1.8.7</version>
+        </dependency>
+
         <dependency>
             <groupId>dk.statsbiblioteket.newspaper</groupId>
             <artifactId>hadoop-file-converters</artifactId>
