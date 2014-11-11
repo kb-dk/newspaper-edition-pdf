@@ -15,8 +15,8 @@ public class EditionAsKeyMapper extends Mapper<LongWritable,Text,Text,Text> {
         context.write(getEdition(value),value);
     }
 
-    private Text getEdition(Text filePath) {
-        //TODO
-        return filePath;
+    public static Text getEdition(Text filePath) {
+        // B400022028241-RT1/400022028241-1/1795-06-15-02/adresseavisen1759-1795-06-15-02-0005A.jp2
+        return new Text(filePath.toString().split("/")[2]);
     }
 }
