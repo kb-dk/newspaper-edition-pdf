@@ -1,9 +1,6 @@
 package dk.statsiblioteket.newspaper.editions;
 
 import dk.statsbiblioteket.medieplatform.autonomous.ConfigConstants;
-import dk.statsbiblioteket.medieplatform.hadoop.ConvertMapper;
-import dk.statsbiblioteket.medieplatform.hadoop.DomsSaverReducer;
-import dk.statsbiblioteket.medieplatform.hadoop.WrapperMapper;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
@@ -42,13 +39,6 @@ public class EditionsPdfJob implements Tool {
         job.setJobName("Newspaper " + getClass().getSimpleName() + " " + configuration.get(ConfigConstants.BATCH_ID));
         job.setJarByClass(EditionsPdfJob.class);
 
-        ChainMapper.addMapper(job,
-                                     EditionAsKeyMapper.class,
-                                     LongWritable.class,
-                                     Text.class,
-                                     Text.class,
-                                     Text.class,
-                                     configuration);
         ChainMapper.addMapper(job,
                                      Jp2kToPdfMapper.class,
                                      Text.class,
