@@ -1,5 +1,7 @@
 package dk.statsiblioteket.newspaper.editions;
 
+import com.google.common.io.Files;
+import dk.statsbiblioteket.medieplatform.autonomous.ConfigConstants;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.pdfbox.exceptions.COSVisitorException;
@@ -12,6 +14,18 @@ import java.util.TreeSet;
 
 public class EditionReducer extends Reducer<Text, Text, Text, Text> {
 
+
+    private File editionsDirectory;
+
+    @Override
+    protected void setup(Context context) throws IOException, InterruptedException {
+        super.setup(context);
+        String editionsDir = context.getConfiguration().get("editions.directory");
+        String batchID = context.getConfiguration().get(ConfigConstants.BATCH_ID);
+        editionsDirectory = new File(editionsDir, batchID);
+        editionsDirectory.mkdirs();
+    }
+
     /**
      * This Reducer will retrieve the edition.xml from doms, merge the given pages to one pdf and overlay the metadata.
      * @param key an edition
@@ -22,18 +36,19 @@ public class EditionReducer extends Reducer<Text, Text, Text, Text> {
      */
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-        super.reduce(key, values, context);
 
-        SortedSet<Text> sortedSet = new TreeSet<Text>();
+
+        SortedSet<String> sortedSet = new TreeSet<String>();
         for (Text value : values) {
-            sortedSet.add(value);
+            sortedSet.add(value.toString());
         }
 
         PDFMergerUtility merger = new PDFMergerUtility();
-        for (Text text : sortedSet) {
-            merger.addSource(new File(text.toString()));
+        merger.addSource(Thread.currentThread().getContextClassLoader().getResourceAsStream("PDF-forside.pdf"));
+        for (String text : sortedSet) {
+            merger.addSource(new File(text));
         }
-        final String destinationFileName = key.toString() + ".pdf";
+        final String destinationFileName = new File(editionsDirectory,key.toString() + ".pdf").getAbsolutePath();
         merger.setDestinationFileName(destinationFileName);
         try {
             merger.mergeDocuments();
