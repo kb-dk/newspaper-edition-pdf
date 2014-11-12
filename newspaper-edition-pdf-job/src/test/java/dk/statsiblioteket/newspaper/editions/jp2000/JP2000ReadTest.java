@@ -14,7 +14,10 @@ public class JP2000ReadTest {
 	@Test
 	public void canReadSampleJP2000Image() throws Exception {
 		String resource = "berlingsketidende-1749-01-03-01-0005A-presentation.jp2";
-		Image image = ImageIO.read(ClassLoader.getSystemResource(resource));
+		BufferedImage image = ImageIO.read(ClassLoader.getSystemResource(resource));
 		Assert.assertNotNull("image==null", image);
+		Assert.assertEquals(1733, image.getWidth());
+		Assert.assertEquals(2635, image.getHeight());
+		Assert.assertEquals(8, image.getColorModel().getPixelSize());
 	}
 }
