@@ -22,12 +22,6 @@ public class Jp2kToPdfMapper extends ConvertMapper{
 
     @Override
     protected String[] makeCommandLine(String dataPath, String commandPath, File resultFile) {
-
-        String[] commandBits = commandPath.split(" ");
-        List<String> commandList = Arrays.asList(commandBits);
-        ArrayList<String> result = new ArrayList<String>(commandList);
-        //TODO fix for the real interface to kakadu
-        result.addAll(Arrays.asList("-i", dataPath, "-o", resultFile.getAbsolutePath()));
-        return result.toArray(new String[result.size()]);
+        return new String[]{"convert",dataPath,resultFile.getAbsolutePath()};
     }
 }
