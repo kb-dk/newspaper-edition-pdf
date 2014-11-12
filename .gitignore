@@ -8,3 +8,6 @@ release.properties
 *.ipr
 *.iws
 idea/
+.classpath
+.project
+.settings/
