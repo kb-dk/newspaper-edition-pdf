@@ -44,6 +44,7 @@ public class EditionReducer extends Reducer<Text, Text, Text, Text> {
         }
 
         PDFMergerUtility merger = new PDFMergerUtility();
+        merger.addSource(Thread.currentThread().getContextClassLoader().getResourceAsStream("PDF-forside.pdf"));
         for (String text : sortedSet) {
             merger.addSource(new File(text));
         }
