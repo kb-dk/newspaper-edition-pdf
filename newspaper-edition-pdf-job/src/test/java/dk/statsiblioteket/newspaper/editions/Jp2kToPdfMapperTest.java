@@ -24,6 +24,7 @@ public class Jp2kToPdfMapperTest {
 
 
         File editionsDirectory = Files.createTempDir();
+        editionsDirectory.deleteOnExit();
 
         mapDriver.getConfiguration().setIfUnset(Jp2kToPdfMapper.HADOOP_CONVERTER_OUTPUT_EXTENSION_PATH, ".pdf");
         mapDriver.getConfiguration().setIfUnset(Jp2kToPdfMapper.HADOOP_CONVERTER_OUTPUT_PATH, editionsDirectory.getAbsolutePath());

@@ -26,6 +26,7 @@ public class EditionReducerTest {
         driver.getConfiguration().setIfUnset(ConfigConstants.BATCH_ID, batchID);
 
         File editionsDirectory = Files.createTempDir();
+        editionsDirectory.deleteOnExit();
         driver.getConfiguration()
                  .setIfUnset("editions.directory", editionsDirectory.getAbsolutePath());
 

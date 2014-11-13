@@ -60,8 +60,11 @@ public class PageModsMapperTest {
         Text value = new Text(File.createTempFile("test",".jp2").getAbsolutePath());
 
         mapDriver.withInput(key, value);
-        mapDriver.withOutput(key, new Text(new File(editionsDirectory,"1795-06-15-02/001.pdf").getAbsolutePath()));
+        final File file = new File(editionsDirectory, "1795-06-15-02/001.pdf");
+        mapDriver.withOutput(key, new Text(file.getAbsolutePath()));
         mapDriver.runTest();
+        file.deleteOnExit();
+
     }
 
     @Test
