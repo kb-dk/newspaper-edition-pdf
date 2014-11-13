@@ -15,12 +15,13 @@ import java.io.IOException;
 
 public class PageModsMapper extends DomsOverlayMapper {
 
+    protected static final String EDITIONS_TMP_DIRECTORY = "editions.tmp.directory";
     private File editionsDirectory;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         super.setup(context);
-        String editionsDirString = context.getConfiguration().get("editions.tmp.directory");
+        String editionsDirString = context.getConfiguration().get(EDITIONS_TMP_DIRECTORY);
         if (editionsDirString == null){
             editionsDirectory = Files.createTempDir();
             editionsDirectory.deleteOnExit();

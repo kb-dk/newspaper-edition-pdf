@@ -29,16 +29,23 @@ public class EditionsPdfJob implements Tool {
     @Override
     public int run(String[] args) throws Exception {
         Configuration configuration = getConf();
-        //configuration.setIfUnset(ConfigConstants.JPYLYZER_PATH, "jpylyzer.py");
         configuration.setIfUnset(ConfigConstants.DOMS_URL, "http://achernar:7880/fedora");
         configuration.setIfUnset(ConfigConstants.DOMS_USERNAME, "fedoraAdmin");
         configuration.setIfUnset(ConfigConstants.DOMS_PASSWORD, "fedoraAdminPass");
+        configuration.setIfUnset(Jp2kToPdfMapper.HADOOP_CONVERTER_OUTPUT_EXTENSION_PATH, ".pdf");
+/*
+        configuration.setIfUnset(Jp2kToPdfMapper.HADOOP_CONVERTER_OUTPUT_PATH, editionsDirectory.getAbsolutePath());
+        configuration.setIfUnset(PageModsMapper.EDITIONS_TMP_DIRECTORY, editionsDirectory.getAbsolutePath());
+        configuration.setIfUnset(EditionReducer.EDITIONS_DIRECTORY, editionsDirectory.getAbsolutePath());
+*/
 
 
         Job job = Job.getInstance(configuration);
         job.setJobName("Newspaper " + getClass().getSimpleName() + " " + configuration.get(ConfigConstants.BATCH_ID));
         job.setJarByClass(EditionsPdfJob.class);
+        //They all require this param
 
+        //the jp2topdf mapper requires these config params
         ChainMapper.addMapper(job,
                                      Jp2kToPdfMapper.class,
                                      Text.class,
@@ -46,6 +53,7 @@ public class EditionsPdfJob implements Tool {
                                      Text.class,
                                      Text.class,
                                      configuration);
+        //This one requires no params yet
         ChainMapper.addMapper(job,
                                      AltoOverlayMapper.class,
                                      Text.class,
@@ -53,10 +61,14 @@ public class EditionsPdfJob implements Tool {
                                      Text.class,
                                      Text.class,
                                      configuration);
+
+
+
         ChainMapper.addMapper(job, PageModsMapper.class, Text.class, Text.class, Text.class, Text.class, configuration);
 
-
         job.setMapperClass(ChainMapper.class);
+
+
         job.setReducerClass(EditionReducer.class);
 
         job.setOutputKeyClass(Text.class);
