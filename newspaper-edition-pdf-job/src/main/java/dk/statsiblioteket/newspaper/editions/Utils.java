@@ -13,13 +13,14 @@ public class Utils  {
 
 
     public static Text getEdition(Text filePath) {
-        // B400022028241-RT1/400022028241-1/1795-06-15-02/adresseavisen1759-1795-06-15-02-0005A.jp2
-        return new Text(filePath.toString().split("/")[2]);
+        return new Text(getEdition(filePath.toString()));
     }
 
 
     public static String getEdition(String filePath) {
-        // B400022028241-RT1/400022028241-1/1795-06-15-02/adresseavisen1759-1795-06-15-02-0005A.jp2
+        if (filePath.contains("_")){
+            return filePath.split("_")[2];
+        }
         return filePath.split("/")[2];
     }
 }
