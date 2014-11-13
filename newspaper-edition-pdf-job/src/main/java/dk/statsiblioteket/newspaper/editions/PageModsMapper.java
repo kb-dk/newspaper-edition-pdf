@@ -36,7 +36,7 @@ public class PageModsMapper extends DomsOverlayMapper {
      *  "edition"/"pageNR".pdf. This should be the output'ed key. pageNR should be a 3 digit number.
      *  The output key will be the edition name
      * @param key this is the formal name
-     * @param value this is the pdf
+     * @param value this is the page pdf
      * @param context to context
      * @throws IOException
      * @throws InterruptedException
@@ -48,7 +48,7 @@ public class PageModsMapper extends DomsOverlayMapper {
             String modsDatastream = getFedora().getXMLDatastreamContents(pid, "MODS");
 
             Integer pageNr = getPageNr(modsDatastream);
-            final File editionDirectory = new File(editionsDirectory, Utils.getEdition(translate(key.toString())));
+            final File editionDirectory = new File(editionsDirectory, Utils.getEdition(key.toString()));
             FileUtils.forceMkdir(editionDirectory);
             final File destFile = new File(editionDirectory, String.format("%03d.pdf",pageNr));
             FileUtils.moveFile(new File(value.toString()), destFile);
@@ -68,9 +68,4 @@ public class PageModsMapper extends DomsOverlayMapper {
         return xpath.selectInteger(modsDom, "/mods:mods/mods:part/mods:extent[@unit='pages']/mods:start");
     }
 
-    @Override
-    protected void cleanup(Context context) throws IOException, InterruptedException {
-        super.cleanup(context);
-        editionsDirectory.delete();
-    }
 }
