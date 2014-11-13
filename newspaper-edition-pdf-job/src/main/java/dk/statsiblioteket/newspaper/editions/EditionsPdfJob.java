@@ -1,6 +1,7 @@
 package dk.statsiblioteket.newspaper.editions;
 
 import dk.statsbiblioteket.medieplatform.autonomous.ConfigConstants;
+import dk.statsbiblioteket.medieplatform.hadoop.WrapperMapper;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
@@ -43,9 +44,14 @@ public class EditionsPdfJob implements Tool {
         Job job = Job.getInstance(configuration);
         job.setJobName("Newspaper " + getClass().getSimpleName() + " " + configuration.get(ConfigConstants.BATCH_ID));
         job.setJarByClass(EditionsPdfJob.class);
-        //They all require this param
 
-        //the jp2topdf mapper requires these config params
+        ChainMapper.addMapper(job,//This one just sets converts the linenumber to the value, ie the line value
+                                     WrapperMapper.class,
+                                     LongWritable.class,
+                                     Text.class,
+                                     Text.class,
+                                     Text.class,
+                                     configuration);
         ChainMapper.addMapper(job,
                                      Jp2kToPdfMapper.class,
                                      Text.class,
@@ -53,7 +59,6 @@ public class EditionsPdfJob implements Tool {
                                      Text.class,
                                      Text.class,
                                      configuration);
-        //This one requires no params yet
         ChainMapper.addMapper(job,
                                      AltoOverlayMapper.class,
                                      Text.class,
@@ -62,12 +67,9 @@ public class EditionsPdfJob implements Tool {
                                      Text.class,
                                      configuration);
 
-
-
         ChainMapper.addMapper(job, PageModsMapper.class, Text.class, Text.class, Text.class, Text.class, configuration);
 
         job.setMapperClass(ChainMapper.class);
-
 
         job.setReducerClass(EditionReducer.class);
 
