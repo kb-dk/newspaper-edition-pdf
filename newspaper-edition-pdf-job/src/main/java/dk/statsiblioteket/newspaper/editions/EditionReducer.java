@@ -15,12 +15,13 @@ import java.util.TreeSet;
 public class EditionReducer extends Reducer<Text, Text, Text, Text> {
 
 
+    protected static final String EDITIONS_DIRECTORY = "editions.directory";
     private File editionsDirectory;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         super.setup(context);
-        String editionsDir = context.getConfiguration().get("editions.directory");
+        String editionsDir = context.getConfiguration().get(EDITIONS_DIRECTORY);
         String batchID = context.getConfiguration().get(ConfigConstants.BATCH_ID);
         editionsDirectory = new File(editionsDir, batchID);
         editionsDirectory.mkdirs();
@@ -54,6 +55,9 @@ public class EditionReducer extends Reducer<Text, Text, Text, Text> {
             merger.mergeDocuments();
         } catch (COSVisitorException e) {
             throw new IOException(e);
+        }
+        for (String file : sortedSet) {
+            new File(file).delete();
         }
         context.write(key,new Text(destinationFileName));
     }
