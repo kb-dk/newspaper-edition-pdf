@@ -56,12 +56,12 @@ public class PageModsMapperTest {
         File editionsDirectory = Files.createTempDir();
 
         mapDriver.getConfiguration().setIfUnset("editions.tmp.directory", editionsDirectory.getAbsolutePath());
-        Text key = new Text("B400022028241-RT1_400022028241-1_1795-06-15-02_adresseavisen1759-1795-06-15-02-0005A.jp2");
+        Text key = new Text("B400022028241-RT1/400022028241-1/1795-06-15-02/adresseavisen1759-1795-06-15-02-0005A.jp2");
         Text value = new Text(File.createTempFile("test",".jp2").getAbsolutePath());
 
         mapDriver.withInput(key, value);
         final File file = new File(editionsDirectory, "1795-06-15-02/001.pdf");
-        mapDriver.withOutput(key, new Text(file.getAbsolutePath()));
+        mapDriver.withOutput(new Text("1795-06-15-02"), new Text(file.getAbsolutePath()));
         mapDriver.runTest();
         file.deleteOnExit();
 
