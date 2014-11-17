@@ -1,4 +1,4 @@
-package dk.statsiblioteket.newspaper.editions;
+package dk.statsbiblioteket.newspaper.editions;
 
 import com.google.common.io.Files;
 import dk.statsbiblioteket.medieplatform.autonomous.ConfigConstants;

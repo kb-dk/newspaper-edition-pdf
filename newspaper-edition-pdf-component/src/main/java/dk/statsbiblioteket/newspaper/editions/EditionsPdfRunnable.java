@@ -1,7 +1,8 @@
 package dk.statsbiblioteket.newspaper.editions;
 
 import dk.statsbiblioteket.medieplatform.hadoop.AbstractHadoopRunnableComponent;
-import dk.statsiblioteket.newspaper.editions.EditionsPdfJob;
+import dk.statsbiblioteket.newspaper.editions.EditionsPdfJob;
+
 import org.apache.hadoop.util.Tool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

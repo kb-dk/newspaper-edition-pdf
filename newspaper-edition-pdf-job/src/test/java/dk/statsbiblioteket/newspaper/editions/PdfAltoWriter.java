@@ -1,4 +1,4 @@
-package dk.statsiblioteket.newspaper.editions;
+package dk.statsbiblioteket.newspaper.editions;
 
 import dk.statsbiblioteket.util.xml.DOM;
 import dk.statsbiblioteket.util.xml.XPathSelector;

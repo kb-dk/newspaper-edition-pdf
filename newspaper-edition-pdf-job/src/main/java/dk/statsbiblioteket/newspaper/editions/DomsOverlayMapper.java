@@ -1,4 +1,4 @@
-package dk.statsiblioteket.newspaper.editions;
+package dk.statsbiblioteket.newspaper.editions;
 
 import dk.statsbiblioteket.doms.central.connectors.BackendInvalidCredsException;
 import dk.statsbiblioteket.doms.central.connectors.BackendMethodFailedException;

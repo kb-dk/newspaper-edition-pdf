@@ -1,4 +1,4 @@
-package dk.statsiblioteket.newspaper.editions;
+package dk.statsbiblioteket.newspaper.editions;
 
 import dk.statsbiblioteket.medieplatform.autonomous.ConfigConstants;
 import dk.statsbiblioteket.medieplatform.hadoop.WrapperMapper;

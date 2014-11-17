@@ -1,4 +1,4 @@
-package dk.statsiblioteket.newspaper.editions;
+package dk.statsbiblioteket.newspaper.editions;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
