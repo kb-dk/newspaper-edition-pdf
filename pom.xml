@@ -12,7 +12,7 @@
     <modules>
         <module>newspaper-edition-pdf-component</module>
         <module>newspaper-edition-pdf-job</module>
-    <module>newspaper-edition-pdf-standalone</module>
+        <!--module>newspaper-edition-pdf-standalone</module-->
   </modules>
 
     <artifactId>newspaper-edition-pdf</artifactId>
@@ -25,7 +25,7 @@
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
                 <artifactId>hadoop-component</artifactId>
-                <version>1.12-SNAPSHOT</version>
+                <version>2.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
@@ -78,7 +78,7 @@
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
                 <artifactId>hadoop-doms-integration</artifactId>
-                <version>1.12-SNAPSHOT</version>
+                <version>2.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
